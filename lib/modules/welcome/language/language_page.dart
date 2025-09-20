@@ -28,10 +28,10 @@ class LanguagePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSpacer(multiplier: 6),
-                  AppTexts.title(S.of(context).languagePageTitle,
+                  AppTexts.title('[TEST]'+S.of(context).languagePageTitle,
                       color: AppColors.primary),
                   CustomSpacer(small: true),
-                  AppTexts.small(S.of(context).languagePageSubtitle,
+                  AppTexts.small(S.of(context).languagePageSubtitle+'[TEST]',
                       color: AppColors.primary),
                   CustomSpacer(),
                   Expanded(

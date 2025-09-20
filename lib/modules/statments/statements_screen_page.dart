@@ -131,8 +131,8 @@ class StatementsPage extends GetView<StatementsController> {
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: Get.height * .3,
-              child: Stack(
-                children: [neutralButton(context), agreeButtons()],
+              child: Stack( //NEW   
+                children: [neutralButton(context), skipButton(context), agreeButtons()],
               ),
             ),
           ),
@@ -191,12 +191,12 @@ class StatementsPage extends GetView<StatementsController> {
                 onPressed: () =>
                     controller.activateButton(StatementResponse.neutral),
                 color: controller.isSelectedOrHovered(StatementResponse.neutral)
-                    ? AppColors.lightPrimary
-                    : AppColors.primary,
+                    ? AppColors.lightPrimary//AppColors.lightPrimary
+                    : AppColors.primary,//AppColors.primary
                 textColor:
                     controller.isSelectedOrHovered(StatementResponse.neutral)
-                        ? AppColors.primary
-                        : AppColors.text,
+                        ? AppColors.primary//AppColors.primary
+                        : AppColors.text,//AppColors.text
                 radius: AppDimens.largeBorderRadius,
                 border: ButtonBorderParameters(
                     color: AppColors.lightPrimary, width: 2, isOutside: true),
@@ -217,4 +217,33 @@ class StatementsPage extends GetView<StatementsController> {
       ),
     );
   }
+
+
+
+
+  //NEW
+  Widget skipButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: Get.height * .02),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Obx(
+          () => IgnorePointer(
+              ignoring: controller.buttonsBlocked,
+              child: CustomButton(
+                text: S.of(context).skip,
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppDimens.lateralPaddingValue * .5),
+                onPressed: controller.skipCurrentCard,
+                color: AppColors.primary,//AppColors.lightPrimary
+                textColor: AppColors.text,//AppColors.primary
+                radius: AppDimens.largeBorderRadius,
+                border: ButtonBorderParameters(
+                    color: AppColors.lightPrimary, width: 2, isOutside: true),
+              )),
+        ),
+      ),
+    );
+  }
 }
+

@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
           bottom: AppDimens.lateralPaddingValue),
       child: Row(
         children: [
-          AppTexts.title(S.of(context).shortAppName,
+          AppTexts.title('[TEST]'+S.of(context).shortAppName,
               forceCaprasimo: true, color: AppColors.primary, fontSize: 27.5),
           Spacer(),
           GetBuilder<HomePageController>(

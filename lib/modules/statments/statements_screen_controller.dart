@@ -14,6 +14,8 @@ import 'package:palumba_eu/modules/results/loading/loading_results_controller.da
 import 'package:palumba_eu/modules/statments/helpers/statements_parser_helper.dart';
 import 'package:palumba_eu/utils/managers/plausible_manager.dart';
 import 'package:palumba_eu/utils/managers/user_manager.dart';
+import 'package:palumba_eu/utils/utils.dart';
+import 'package:palumba_eu/utils/string_utils.dart';
 
 enum _WidthScreenPart { maxLeft, middleLeft, center, middleRight, maxRight }
 
@@ -333,6 +335,9 @@ class StatementsController extends GetxController {
     }
   }
 
+
+
+
   nextCard(StatementResponse response) async {
     _dataRepository.postResponsesAnswer(
         Answer(statementId: _currentCards[0].id, answer: response));
@@ -396,7 +401,28 @@ class StatementsController extends GetxController {
     _cardAnimationDuration.value = 0;
     isPanStarted.value = false;
   }
-
+  //NEW
+  void skipCurrentCard() {
+    _checkIfNeedToShowBanner();
+    if (flipCardController.state?.isFront == false) {
+      flipCardController.toggleCardWithoutAnimation();
+    }
+    if (_currentCards.isNotEmpty) {
+      _currentCards.removeAt(0);
+      update([cardStackKey]);
+      resetAnimation();
+      frontCardScrollController.jumpTo(0.0);
+    }
+    if (_currentCards.isEmpty) {
+      if (UserManager.userData.answers.isEmpty) {
+        Utils.launch(StringUtils.rickrollUrl);
+        Get.offAllNamed(HomePageController.route);
+      } else {
+        Get.offAllNamed(LoadingResultsController.route);
+      }
+    }
+  }
+  
   void onTapNeutralButton() async {
     selectedResponseStatement.value = StatementResponse.neutral;
     await neutralAnimation();
